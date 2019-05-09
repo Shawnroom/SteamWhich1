@@ -1,27 +1,25 @@
 # SteamWhich1
-Steam content-based recommendation system 
+這是一個基於 word2vec的 steam遊戲推薦系統
 
+# 專案緣起
+身為一個 Steam的重度玩家，每次特價時總會想買點遊戲，但又懶得花時間研究= =。所以想做個推薦模型來幫助我花錢(荷包君表示QQ)
 
 # 操作流程
 **1. 爬網站 & 擷取資訊**：透過 requests爬取 steam API資訊。存取每個遊戲的評論到 csv檔。
 
 執行`python steamParser.py`
 
-**2. 文字預處理**：使用 nltk與 re對文字進行預處理。
-
-執行`python wordPreprocess.py`
-
-**3. 訓練**：透過在 gensim 中實作的 Doc2Vec，設定參數對資料進行訓練，產生詞向量與模型。
+**2. 訓練**：透過在 gensim 中實作的 Doc2Vec，設定參數對資料進行訓練，產生詞向量與模型。
 
 執行`python modelTrain.py`
 
-**4. 使用**：調用模型權重，輸入英文詞彙或 steam appid，推薦對應的遊戲。
+**3. 使用**：調用模型權重，輸入英文詞彙或 steam appid，推薦對應的遊戲。
 
 執行`loadModel.py`
 
 
 # 專案成果
-本次共訓練 5899 個遊戲評論，訓練結果為 100維詞向量。由於訓練數量蠻小的，所以訓練速度很快。
+本次共訓練 5983個遊戲的 20-100則評論，訓練結果為 100維詞向量。由於訓練數量蠻小的，所以訓練速度很快。
 
 1. 先載入 gensim 套件與剛剛訓練好的 model
 ```python
@@ -55,7 +53,7 @@ models.wv.similar_by_word('ark', topn=7)
 ```python
 # steam商店中的 appid
 appid_ = 593600
-# PixelArk
+# PixArk
 recom = models.docvecs.most_similar(data.query('appid == @appid_').index.values[0])
 for idx, value in enumerate(recom):
     print(data.iloc[value[0], 8], ':', value[1])
@@ -74,3 +72,9 @@ for idx, value in enumerate(recom):
 - [animallica](https://store.steampowered.com/app/638850) : 0.730
 
 
+# 未來方向
+- 改善 SteamParser language參數失效問題，提升遊戲數與個別評論數，模型成果應該會更好
+- 新增繁中模型(有些遊戲以華人為主)
+- 優化文字預處理
+- 依照評論的推薦度給予不同權重(因人廢言)
+- 新增依照意境推薦遊戲的功能
