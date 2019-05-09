@@ -44,3 +44,29 @@ models.wv.similar_by_word('bad')
  ('sucks', 0.5883899927139282),
  ('abysmal', 0.5872944593429565)]
 ```
+我很喜歡玩 Ark這個遊戲，有哪些字/遊戲跟 Ark相似呢？
+```python
+models.wv.similar_by_word('ark')
+
+[('exiles', 0.7174763679504395),
+ ('rust', 0.7028614282608032),
+ ('dayz', 0.6964631080627441),
+ ('terraria', 0.6639452576637268),
+ ('h1z1', 0.6471999287605286),
+ ('conan', 0.6379730701446533),
+ ('subnautica', 0.6355788111686707),
+ ('evolvedn', 0.6341693997383118),
+ ('empyrion', 0.6246341466903687),
+ ('fittest', 0.6022223830223083)]
+```
+從結果中可以發現有 4個結果不是遊戲名稱，如果我只要知道與 Ark相似的遊戲，可以使用
+```python
+# steam商店中的 appid
+appid_ = 629760
+# mordhau
+recom = models.docvecs.most_similar(data.query('appid == @appid_').index.values[0])
+for idx, value in enumerate(recom):
+    print(data.iloc[value[0], 8], ':', value[1])
+    print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
+```
+
