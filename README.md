@@ -61,6 +61,7 @@ for idx, value in enumerate(recom):
     print(data.iloc[value[0], 8], ':', value[1])
     print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
 ```
+整理一下結果為 :
 - [citadel: forged with fire](https://store.steampowered.com/app/487120) : 0.833
 - [dark and light](https://store.steampowered.com/app/529180) : 0.801
 - [metatron](https://store.steampowered.com/app/454680) : 0.772
@@ -71,5 +72,5 @@ for idx, value in enumerate(recom):
 - [the wild eight](https://store.steampowered.com/app/526160) : 0.745
 - [chkn](https://store.steampowered.com/app/420930) : 0.742
 - [animallica](https://store.steampowered.com/app/638850) : 0.730
-```
+
 
