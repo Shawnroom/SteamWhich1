@@ -60,26 +60,16 @@ recom = models.docvecs.most_similar(data.query('appid == @appid_').index.values[
 for idx, value in enumerate(recom):
     print(data.iloc[value[0], 8], ':', value[1])
     print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
-
-citadel: forged with fire : 0.8330956697463989
-Steam商店頁面: https://store.steampowered.com/app/487120
-dark and light : 0.8013544678688049
-Steam商店頁面: https://store.steampowered.com/app/529180
-metatron : 0.7723658084869385
-Steam商店頁面: https://store.steampowered.com/app/454680
-conan exiles : 0.7697832584381104
-Steam商店頁面: https://store.steampowered.com/app/440900
-stranded deep : 0.7561972141265869
-Steam商店頁面: https://store.steampowered.com/app/313120
-ylands : 0.7502149939537048
-Steam商店頁面: https://store.steampowered.com/app/298610
-valnir rok : 0.7472282648086548
-Steam商店頁面: https://store.steampowered.com/app/658980
-the wild eight : 0.7458113431930542
-Steam商店頁面: https://store.steampowered.com/app/526160
-chkn : 0.7420089244842529
-Steam商店頁面: https://store.steampowered.com/app/420930
-animallica : 0.7305570840835571
-Steam商店頁面: https://store.steampowered.com/app/638850
+```
+- [citadel: forged with fire](https://store.steampowered.com/app/487120) : 0.833
+- [dark and light](https://store.steampowered.com/app/529180) : 0.801
+- [metatron](https://store.steampowered.com/app/454680) : 0.772
+- [conan exiles](https://store.steampowered.com/app/440900) : 0.769
+- [stranded deep](https://store.steampowered.com/app/313120) : 0.756
+- [ylands](https://store.steampowered.com/app/298610) : 0.750
+- [valnir rok](https://store.steampowered.com/app/658980) : 0.747
+- [the wild eight](https://store.steampowered.com/app/526160) : 0.745
+- [chkn](https://store.steampowered.com/app/420930) : 0.742
+- [animallica](https://store.steampowered.com/app/638850) : 0.730
 ```
 
