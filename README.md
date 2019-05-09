@@ -7,11 +7,11 @@
 # 操作流程
 **1. 爬網站 & 擷取資訊**：透過 requests爬取 steam API資訊。存取每個遊戲的評論到 csv檔。
 
-執行`python steamParser.py`
+執行`steamParser.py`
 
 **2. 訓練**：透過在 gensim 中實作的 Doc2Vec，設定參數對資料進行訓練，產生詞向量與模型。
 
-執行`python modelTrain.py`
+執行`modelTrain.py`
 
 **3. 使用**：調用模型權重，輸入英文詞彙或 steam appid，推薦對應的遊戲。
 
@@ -22,10 +22,11 @@
 本次共訓練 5983個遊戲的 20-100則評論，訓練結果為 100維詞向量。由於訓練數量蠻小的，所以訓練速度很快。
 
 1. 先載入 gensim 套件與剛剛訓練好的 model
+- 模型參數可透過 modelTrain.py訓練 (訓練好權重超過 100MB，故布上傳)
 ```python
 from gensim.models import doc2vec
 # load fresh model
-models = doc2vec.Doc2Vec.load("d2v_weights")
+models = doc2vec.Doc2Vec.load("d2v_weights_new")
 ```
 接下來就可以開始玩啦！關於好遊戲，玩家們除了 good之外還會用哪些形容詞呢？
 ```python
@@ -54,10 +55,7 @@ models.wv.similar_by_word('ark', topn=7)
 # steam商店中的 appid
 appid_ = 593600
 # PixArk
-recom = models.docvecs.most_similar(data.query('appid == @appid_').index.values[0])
-for idx, value in enumerate(recom):
-    print(data.iloc[value[0], 8], ':', value[1])
-    print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
+game_recommadation(593600)
 ```
 整理一下結果為 :
 - [citadel: forged with fire](https://store.steampowered.com/app/487120) : 0.833
