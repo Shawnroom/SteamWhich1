@@ -1,70 +1,39 @@
-from gensim.models import Word2Vec, doc2vec
+from gensim.models import doc2vec
 import pandas as pd
 
-model = Word2Vec.load("w400-5-5-model")
+def game_recommadation(appid_):
+    '''
+    給定 steam appid，返回推薦的遊戲名稱與網址
+    Example:
+        https://store.steampowered.com/app/629760/MORDHAU/
+        appid_ = 629760
+    '''
+    try:
+        recom = models.docvecs.most_similar(data.query('appid == @appid_').index.values[0])
+        for idx, value in enumerate(recom):
+            print(data.iloc[value[0], 8], ':', value[1])
+            print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
+    except IndexError:
+        print('This game is not in training data.')
 
-model.most_similar(['mordhau'],topn = 8)
-model.most_similar(['dota'],topn = 8)
-model.most_similar(['detention'],topn = 8)   
-model.most_similar(['ark'],topn = 8)  
 
-models = doc2vec.Doc2Vec.load("d2v_weights")
-
-models.wv.similar_by_word('good')
-
-data = pd.read_csv('allreviews.csv')
-
+data = pd.read_csv('allreviews.csv', encoding='utf-8')
 url_prefix = 'https://store.steampowered.com/app/'
-for idx, value in enumerate(recom):
-    print(data.iloc[value[0], 8], ':', value[1])
-    print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
 
-tokens = "best FPS game".split()
-new_vector = models.infer_vector(tokens)
-sims = models.docvecs.most_similar([new_vector])
+models = doc2vec.Doc2Vec.load("d2v_weights_new")
 
-for idx, value in enumerate(sims):
-    print(data.iloc[value[0], 8], ':', value[1])
-    
-    
-sims = models.docvecs.most_similar([new_vector])
-
-appid_ = 629760
 # mordhau
-recom = models.docvecs.most_similar(data.query('appid == @appid_').index.values[0])
-for idx, value in enumerate(recom):
-    print(data.iloc[value[0], 8], ':', value[1])
-    print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
-    
-appid_ = 219740
-recom = models.docvecs.most_similar(data.query('appid == @appid_').index.values[0])
-for idx, value in enumerate(recom):
-    print(data.iloc[value[0], 8], ':', value[1])
-    print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
+game_recommadation(629760)
+
+# pix ark
+game_recommadation(593600)
+
+#mirror
+game_recommadation(644560)
 
 
-recom2 = models.docvecs.most_similar(2368)
-for idx, value in enumerate(recom2):
-    print(data.iloc[value[0], 8], ':', value[1])
-    
-
-# ghost recon wildland 
-data.query('appid == 460930')
-recom3 = models.docvecs.most_similar(1438)
-for idx, value in enumerate(recom3):
-    print(data.iloc[value[0], 8], ':', value[1])
+models.wv.similar_by_word('good', topn=7)
+models.wv.similar_by_word('fun', topn=7)
+models.wv.similar_by_word('loli', topn=10)
 
 
-data.query('appid == 555220')
-
-
-
-
-appid_ = 644560
-url_prefix = 'https://store.steampowered.com/app/'
-# mirrior 644560
-recom2 = models.docvecs.most_similar(data.query('appid == @appid_').index.values[0])
-for idx, value in enumerate(recom2):
-    print(data.iloc[value[0], 8], ':', value[1])
-    print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
-    
