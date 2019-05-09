@@ -29,44 +29,57 @@ from gensim.models import doc2vec
 # load fresh model
 models = doc2vec.Doc2Vec.load("d2v_weights")
 ```
-接下來就可以開始玩啦！關於糟糕的遊戲，玩家們除了 bad之外還會用哪些形容詞呢？
+接下來就可以開始玩啦！關於好遊戲，玩家們除了 good之外還會用哪些形容詞呢？
 ```python
-models.wv.similar_by_word('bad')
-
-[('terrible', 0.746313214302063),
- ('awful', 0.6867302656173706),
- ('horrible', 0.683438777923584),
- ('poor', 0.659858226776123),
- ('shitty', 0.6323168277740479),
- ('crappy', 0.6310047507286072),
- ('good', 0.6165034174919128),
- ('badnnit', 0.5917258858680725),
- ('sucks', 0.5883899927139282),
- ('abysmal', 0.5872944593429565)]
+models.wv.similar_by_word('good', topn=7)
+[('decent', 0.8043760061264038),
+ ('great', 0.7898209691047668),
+ ('gamegood', 0.7109229564666748),
+ ('nice', 0.697540819644928),
+ ('awesome', 0.6696457862854004),
+ ('fantastic', 0.655768632888794),
+ ('excellent', 0.6513001322746277)]
 ```
-我很喜歡玩 Ark這個遊戲，有哪些字/遊戲跟 Ark相似呢？
+我很喜歡玩 Ark這個遊戲，有哪些詞語跟 Ark相似呢？
 ```python
-models.wv.similar_by_word('ark')
-
-[('exiles', 0.7174763679504395),
- ('rust', 0.7028614282608032),
- ('dayz', 0.6964631080627441),
- ('terraria', 0.6639452576637268),
- ('h1z1', 0.6471999287605286),
- ('conan', 0.6379730701446533),
- ('subnautica', 0.6355788111686707),
- ('evolvedn', 0.6341693997383118),
- ('empyrion', 0.6246341466903687),
- ('fittest', 0.6022223830223083)]
+models.wv.similar_by_word('ark', topn=7)
+[('evolved', 0.7574654817581177),
+ ('subnautica', 0.6752661466598511),
+ ('terraria', 0.6497236490249634),
+ ('rust', 0.6383152008056641),
+ ('exiles', 0.6306138038635254),
+ ('kairosoft', 0.6045154333114624),
+ ('fittest', 0.599312424659729)]
 ```
-從結果中可以發現有 4個結果不是遊戲名稱，如果我只想知道與 Ark相似的遊戲，可以使用
+從結果中可以發現有 3個結果不是遊戲名稱，如果我只想知道與 Ark相似的遊戲，可以使用
 ```python
 # steam商店中的 appid
-appid_ = 629760
-# mordhau
+appid_ = 593600
+# PixelArk
 recom = models.docvecs.most_similar(data.query('appid == @appid_').index.values[0])
 for idx, value in enumerate(recom):
     print(data.iloc[value[0], 8], ':', value[1])
     print('Steam商店頁面:', url_prefix+str(data.iloc[value[0], 0]))
+
+citadel: forged with fire : 0.8330956697463989
+Steam商店頁面: https://store.steampowered.com/app/487120
+dark and light : 0.8013544678688049
+Steam商店頁面: https://store.steampowered.com/app/529180
+metatron : 0.7723658084869385
+Steam商店頁面: https://store.steampowered.com/app/454680
+conan exiles : 0.7697832584381104
+Steam商店頁面: https://store.steampowered.com/app/440900
+stranded deep : 0.7561972141265869
+Steam商店頁面: https://store.steampowered.com/app/313120
+ylands : 0.7502149939537048
+Steam商店頁面: https://store.steampowered.com/app/298610
+valnir rok : 0.7472282648086548
+Steam商店頁面: https://store.steampowered.com/app/658980
+the wild eight : 0.7458113431930542
+Steam商店頁面: https://store.steampowered.com/app/526160
+chkn : 0.7420089244842529
+Steam商店頁面: https://store.steampowered.com/app/420930
+animallica : 0.7305570840835571
+Steam商店頁面: https://store.steampowered.com/app/638850
 ```
 
