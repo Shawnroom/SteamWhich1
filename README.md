@@ -39,7 +39,7 @@ models.wv.similar_by_word('good', topn=7)
  ('fantastic', 0.655768632888794),
  ('excellent', 0.6513001322746277)]
 ```
-我很喜歡玩 Ark這個遊戲，有哪些詞語跟 Ark相似呢？
+我很喜歡玩 Ark，有哪些詞語跟 Ark相似呢？
 ```python
 models.wv.similar_by_word('ark', topn=7)
 [('evolved', 0.7574654817581177),
@@ -50,7 +50,7 @@ models.wv.similar_by_word('ark', topn=7)
  ('kairosoft', 0.6045154333114624),
  ('fittest', 0.599312424659729)]
 ```
-從結果中可以發現有 3個結果不是遊戲名稱，如果我只想知道與 Ark相似的遊戲，可以使用
+從結果中可以發現有 3個結果不是遊戲名稱，如果我只想知道與 PixArk相似的遊戲，可以使用
 ```python
 # steam商店中的 appid
 appid_ = 593600
